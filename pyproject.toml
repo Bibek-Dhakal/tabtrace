@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tabtrace"
+version = "0.1.0"
+description = "Reproducible tabular ML pipeline with justified feature engineering and cross-validated evaluation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Bibek Dhakal" }]
+dependencies = [
+  "pandas",
+  "scikit-learn",
+  "numpy",
+  "joblib",
+  "ipykernel>=7.3.0",
+  "matplotlib>=3.10.9",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "ruff",
+  "pre-commit",
+]
+notebooks = [
+  "matplotlib",
+  "jupyter",
+]
+
+[project.scripts]
+tabtrace = "tabtrace.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q --cov=tabtrace --cov-report=term-missing --cov-fail-under=90"
+pythonpath = ["src"]
